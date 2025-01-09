@@ -65,7 +65,7 @@ def get_lead_as_excel(name):
             if row_num == 0:
                 worksheet.write(row_num, col_num, cell_data, bold_format)
             else:
-                if list(row_data.keys())[col_num] == "attach_image_wjpb":
+                if list(row_data.keys())[col_num] == "attach_image_wjpb" and cell_data:
                     if "/private/" not in cell_data:
                         image_path = absolute_path + "/public/"
                     else:
@@ -92,7 +92,7 @@ def get_lead_as_excel(name):
         {
             "file_name": "exported_excel.xlsx",
             "attached_to_doctype": "Lead",
-            "attached_to_name": name
+            "attached_to_name": name,
         },
     )
 
@@ -103,11 +103,11 @@ def get_lead_as_excel(name):
     file_doc = frappe.get_doc(
         {
             "doctype": "File",
-            "file_name": "exported_excel.xlsx",  
-            "is_private": 1,  
+            "file_name": "exported_excel.xlsx",
+            "is_private": 1,
             "content": output.getvalue(),
             "attached_to_doctype": "Lead",
-            "attached_to_name": name
+            "attached_to_name": name,
         }
     )
 
