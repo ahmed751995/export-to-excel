@@ -10,6 +10,9 @@ target_height = 70
 
 
 def get_absolute_files_path():
+    """
+    get the site file path
+    """
     bench_root = frappe.utils.get_bench_path()
 
     site_path = frappe.get_site_path()[2:]
@@ -32,6 +35,11 @@ def calculate_scaling_factors(image_path, target_width, target_height):
 
 @frappe.whitelist(allow_guest=True)
 def get_lead_as_excel(name):
+    """
+    API for getting excel file of the BOQ and it's bill of quantity,
+    the main feature of the api it adds bill of quantity primary image binary
+    and saves the generated file to it's document.
+    """
     absolute_path = get_absolute_files_path()
     Lead = frappe.qb.DocType("Lead")
     BillOfQuantity = frappe.qb.DocType("Bill of Quantity")
@@ -96,7 +104,6 @@ def get_lead_as_excel(name):
         },
     )
 
-    print(file_exists)
     if file_exists:
         frappe.delete_doc("File", file_exists)
 
